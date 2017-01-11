@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1484165218 source:d:\workcodeblocks\blackjack2\main.cpp
+	<iostream>
+	<fstream>
+	<string>
+	<windows.h>
+	<algorithm>
+	<ctime>
+	<vector>
+
