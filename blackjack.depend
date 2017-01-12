@@ -8,3 +8,12 @@
 	<ctime>
 	<vector>
 
+1484234100 source:d:\workcodeblocks\blackjackproject\main.cpp
+	<iostream>
+	<fstream>
+	<string>
+	<windows.h>
+	<algorithm>
+	<ctime>
+	<vector>
+
