@@ -14,7 +14,6 @@ unsigned int bet=0;
 };
 void userAccount(int x, Player users[]);
 void menu(bool CardDealt[], int HouseHand[], int PlayerHand[],int HouseCardCount,int PlayerCardCount, int x, Player users[]);
-void scores(int x, Player users[]);
 void shuffle(bool cardDelt[]);
 void displayCard(int Card);
 void displayHand(int Hand[], const int CardCount);
@@ -23,7 +22,6 @@ int nextCard(bool CardsDealt[]);
 int scoreHand(int Hand[], const int CardCount);
 void gameComputer(bool CardsDealt[], int HouseHand[], int PlayerHand[], int HouseCardCount, int PlayerCardCount, int x, Player users[]);
 void gameUser(bool CardsDealt[], int HouseHand[], int PlayerHand[],int HouseCardCount, int PlayerCardCount, int x, Player users[]);
-
 using namespace std;
 //===========================
 //      main()              *
@@ -79,7 +77,7 @@ void userAccount(int x, Player users[])
     case '1':
         cout<<"#=====================================#"<<endl;
         cout<<"=        Black Jack Utilizator Nou    ="<<endl;
-        cout<<"#=====================================#"<<endl;
+        cout<<"#=====================================#"<<endl<<endl<<endl;
         inData.open("Username.dat",ios::app);
         inScores.open("Scores.dat",ios::app);
         cout<<"Intoduceti Utilizatorul(doar litere mici): ";
@@ -96,7 +94,7 @@ void userAccount(int x, Player users[])
     inScores<<userName<<endl<<users[x].score<<endl;
     inData.close();
     inScores.close();
-    cout<<"Înregistrarea utilizatorilor !";
+    cout<<"Inregistrarea utilizatorilor !";
     cout<<"\n\n *";
     for(int a=1;a<8;a++)
     {
@@ -104,7 +102,7 @@ void userAccount(int x, Player users[])
         Sleep(500);
 
     }
-    cin.sync();cin.ignore();
+
     system("cls");
     break;
     case '2':
@@ -133,10 +131,10 @@ inData.close();
 if(found){
     cout<<"\nBine ai venit "<< userName<<"!\n";
     Sleep(2000);
-    system("cls");
+system("cls");
 }
         else{
-            cout<<"Ati introdus un nume de utilizator sau parola gresit. Apasati pe (1) pentru pentru a ajunge in meniu."<<endl;
+            cout<<"Ati introdus un nume de utilizator sau parola gresit.\n\nIntroducet(1) pentru pentru a ajunge in meniu."<<endl;
             cin>>passWord;
             if(passWord=="1")
                 system("cls");
@@ -190,9 +188,8 @@ void menu(bool CardsDealt[], int HouseHand[],int PlayerHand[], int HouseCardCoun
         Sleep(500);
     }
     userAccount(x,users);
-    cin.sync();cin.ignore();
-    system("cls");
-  gameComputer(CardsDealt,HouseHand,PlayerHand,HouseCardCount,PlayerCardCount,x,users);
+  system("cls");
+    gameComputer(CardsDealt,HouseHand,PlayerHand,HouseCardCount,PlayerCardCount,x,users);
     break;
     case '2':
 
@@ -204,10 +201,8 @@ void menu(bool CardsDealt[], int HouseHand[],int PlayerHand[], int HouseCardCoun
         cout<<"*";
         Sleep(500);
     }
-    userAccount(x,users);system("cls");
-    cin.sync();cin.ignore();
+    userAccount(x,users);Sleep(2000);
     system("cls");
-
     gameUser(CardsDealt,HouseHand,PlayerHand,HouseCardCount,PlayerCardCount,x,users);
     break;
     default:
@@ -228,7 +223,7 @@ for (int Index=0;Index<52;++Index){
 //      displayCard()                     =
 //=========================================
 void displayCard(int Card){
-//Display the Rank}
+
 const int Rank=(Card%13);
 if(Rank==0){
    cout<<"Ace/";}
@@ -258,7 +253,7 @@ if(Rank==0){
                 cout<<"Inima";
             }
             else{
-                    cout<<"Cruce";
+                    cout<<"Frunza";
             }
             }
 //===========================================
@@ -324,34 +319,11 @@ cout<<"\nPlayer Carti: Scor = "<<scoreHand(PlayerHand,PlayerCardCount)<<endl;
 displayHand(PlayerHand, PlayerCardCount);
 cout<<endl;
 }
-//==============================================
-//                 score()                     =
-//==============================================
-void scores(int x,Player users[])
-{
-    //Declarations
-    fstream inScores;
-    string line;
-    string userName;
-    int score;
-    bool found=false;
-
-    userName=users[x].userName;
-    score=users[x].score;
-   inScores.open("Scores.dat",ios::in|ios::out);
-    while(getline(inScores,line)&&!found){
-        if(line.compare(userName)==0){
-            found=true;
-            inScores<<score;
-        }
-    }
-    inScores.close();
-    }
 //================================
 //         gameComputer()        *
 //================================
 void gameComputer(bool CardsDealt[], int HouseHand[], int PlayerHand[], int HouseCardCount,int PlayerCardCount, int x, Player users[])
-{
+{system("cls");
     bool flag=true;
     int choice=1;
     int bets;
@@ -434,7 +406,7 @@ void gameComputer(bool CardsDealt[], int HouseHand[], int PlayerHand[], int Hous
 
 
             system("cls");
-            scores(x,users);
+
             cout<<"Casa a castigat!"<<endl;
             cout<<"Ai pierdut suma: $"<<bets<<endl;
             displayScoresAndHands(HouseHand, HouseCardCount, PlayerHand, PlayerCardCount);
@@ -451,7 +423,7 @@ void gameComputer(bool CardsDealt[], int HouseHand[], int PlayerHand[], int Hous
                 if(HouseBusts){
 
                     system("cls");
-                    scores(x,users);
+
                     cout<<"Ai castigat!"<<endl;
                     bets=bets*2;
                     cout<<"Ai castigat suma: $"<<bets<<endl;
@@ -464,7 +436,7 @@ void gameComputer(bool CardsDealt[], int HouseHand[], int PlayerHand[], int Hous
 
 
                         system("cls");
-                        scores(x,users);
+
                         cout<<"Egal!"<<endl;
                         cout<<"Ai castigat $0"<<endl;
                         users[x].score=bets+users[x].score;
@@ -473,7 +445,7 @@ void gameComputer(bool CardsDealt[], int HouseHand[], int PlayerHand[], int Hous
                     else if(PlayerScore>HouseScore){
 
                         system("cls");
-                        scores(x,users);
+
                         cout<<"Ai castigat!"<<endl;
                         bets=bets*2;
                         cout<<"Ai castigat suma $"<<bets<<endl;
@@ -482,13 +454,14 @@ void gameComputer(bool CardsDealt[], int HouseHand[], int PlayerHand[], int Hous
                     }
                     else{
                     system("cls");
-                    scores(x,users);
+                    //
                     cout<<"Casa a castigat!"<<endl;
                     cout<<"Ai piedut suma $"<<bets<<endl<<endl;
                     displayScoresAndHands(HouseHand, HouseCardCount,PlayerHand, PlayerCardCount);
                     }
                 }
             }
+
         system("pause");
         system("cls");
         cout<<"Ai vrea sa joci inca un meci? Da(1) ori Nu(2)"<<endl;
@@ -512,7 +485,7 @@ void gameUser(bool CardsDealt[], int HouseHand[], int PlayerHand[], int HouseCar
      unsigned int CountPlayer=0;
      int i;
      int bets=0;
-     cout<<"Cu cati player doriti sa jucati?\n(1 or 2): ";
+     cout<<"Cu cati player doriti sa jucati?\n(1 ori 2): ";
      cin>>i;
      while((i<1)||(i>2)){
         cout<<"Ai intordus o tasta gresita. \nTe rog intorduce din nou: ";
@@ -615,11 +588,11 @@ void gameUser(bool CardsDealt[], int HouseHand[], int PlayerHand[], int HouseCar
 
         if(x!=1){
                 system("cls");
-                cout<<"Tura urmatorului jucator\n";
-                system("pause");
+                cout<<" Urmeaza tura urmatorului jucator...";
+                Sleep(2000); system("cls");
             }
             else{
-                cout<<"Jocul sa terminat. ";
+                cout<<"Jocul sa terminat. \n";
                 system("pause");
                 system("cls");
             }
@@ -651,7 +624,7 @@ void gameUser(bool CardsDealt[], int HouseHand[], int PlayerHand[], int HouseCar
         cout<<users[1].userName<<" A castigat!\n";
         users[1].score=users[0].bet+users[1].bet+users[1].score;
     }
-    scores(x,users);
+
     cout<<"Cartile Dealer: Scor = "<<scoreHand(HouseHand, HouseCardCount)<<endl;
     displayHand(HouseHand, HouseCardCount);
     cout<<"Daca scorul cartilor este egala cu 0, jucaotrul a depasit 21"<<endl;
@@ -682,7 +655,7 @@ void gameUser(bool CardsDealt[], int HouseHand[], int PlayerHand[], int HouseCar
             cout<<users[0].userName<<" A castigat!\n";
             users[2].score=users[0].bet+users[1].bet+users[2].bet+users[2].score;
         }
-        scores(x,users);
+
         cout<<"Carti Dealear Scor = "<<scoreHand(HouseHand, HouseCardCount)<<endl;
         displayHand(HouseHand, HouseCardCount);
         cout<<"Daca scorul cartilor este egal cu 0, jucatorul a depasit 21!"<<endl;
@@ -716,7 +689,7 @@ void gameUser(bool CardsDealt[], int HouseHand[], int PlayerHand[], int HouseCar
             cout<<"Casa A castigat! \nToti banii pariati au fost pierduti!\n"<<endl;
         }
 
-    scores(x,users);
+
     cout<<"Carti Dealear: Scor = "<<scoreHand(HouseHand, HouseCardCount)<<endl;
     displayHand(HouseHand, HouseCardCount);
     cout<<"\nDaca scorul cartilor este egal cu 0, jucatorul a depasit 21!"<<endl;
@@ -748,7 +721,7 @@ void gameUser(bool CardsDealt[], int HouseHand[], int PlayerHand[], int HouseCar
         if((HouseScores>users[0].hand)&&(HouseScores>users[1].hand)&&((users[2].hand>HouseScores))){
             cout<<"Casa A castigat! \nToti banii pariati au fost pieduti!\n"<<endl;
         }
-        scores(x,users);
+
         cout<<"Carti Dealear Scor="<<scoreHand(HouseHand, HouseCardCount)<<endl;
         displayHand(HouseHand, HouseCardCount);
         cout<<"Daca scorul cartilor este egal cu 0, jucatorul a depasit 21"<<endl;
